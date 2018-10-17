@@ -64,8 +64,8 @@ int getMinPriority(PQueue *pqueue){
 }
 
 void *peek(PQueue *pqueue){
-	if(pqueue->tail!=NULL){
-	return(pqueue->tail);
+	if(pqueue->head!=NULL){
+	return(pqueue->head->data);
 	}
 	return(NULL);
 }
@@ -101,111 +101,27 @@ int printQueue(PQueue *pqueue){
 	PQueue *pq = pqueue;
 	PQueueNode *theList = pq->head;
 
+
 	while(theList != NULL){
+		char s[32];
 		printf(" %d", theList->priority);
+		strcpy(s, theList->data);
+		printf(" %s", s);
+
 		theList = theList->next;
 	}
 	printf(" \n");
 	return(0);
 }
 
-//////////////////////////////// TESTING ////////////////////////////////
-void pqueue_test_2() {
-	 PQueue pqueue;
-	 DataNode *data;
-	 int priority;
-	 printf("start of test_2()\n");
-	 // initialize a priority queue
-	 pqueue.head = NULL;
-	 pqueue.tail = NULL;
-	 // enqueue data with priority = 8
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data four-a");
-	 priority = 4;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 // enqueue data with priority = 3
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data three");
-	 priority = 3;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 // enqueue data with priority = 10
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data ten");
-	 priority = 10;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 priority = getMinPriority(&pqueue);
-	 data = (DataNode *) dequeue(&pqueue);
-	 if (data == NULL) {
-	 printf("ERROR: expect data to be non-null\n");
-	 } else {
-	 printf("dequeue: %s, priority = %d\n", data->name, priority);
-	 }
-	 // enqueue data with priority = 4
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data four-b");
-	 priority = 4;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 // enqueue data with priority = 6
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data six");
-	 priority = 6;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 priority = getMinPriority(&pqueue);
-	 data = (DataNode *) dequeue(&pqueue);
-	 if (data == NULL) {
-	 printf("ERROR: expect data to be non-null\n");
-	 } else {
-	 printf("dequeue: %s, priority = %d\n", data->name, priority);
-	 }
-	// enqueue data with priority = 1
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data one");
-	 priority = 1;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 priority = getMinPriority(&pqueue);
-	 data = (DataNode *) dequeue(&pqueue);
-	 if (data == NULL) {
-	 printf("ERROR: expect data to be non-null\n");
-	 } else {
-	 printf("dequeue: %s, priority = %d\n", data->name, priority);
-	 }
-	 // enqueue data with priority = 9
-	 data = (DataNode *) malloc(sizeof(DataNode));
-	 strcpy(data->name, "data nine");
-	 priority = 9;
-	 printf("enqueue %s %d\n", data->name, priority);
-	 enqueue(&pqueue, priority, data);
-	 priority = getMinPriority(&pqueue);
-	 data = (DataNode *) peek(&pqueue);
-	 if (data == NULL) {
-	 printf("ERROR: expect data to be non-null\n");
-	 } else {
-	 printf("peek: %s, priority = %d\n", data->name, priority);
-	 }
-	 priority = getMinPriority(&pqueue);
-	 printQueue(&pqueue);
-	 data = (DataNode *) dequeue(&pqueue);
-	 while (data != NULL) {
-	 printf("dequeue: %s, priority = %d\n", data->name, priority);
-	 priority = getMinPriority(&pqueue);
-	 data = (DataNode *) dequeue(&pqueue);
-	 }
-	 printf("end of test_2()\n");
-	 printf("\n");
-	}
-
-
 //////////////////////////////// MAIN //////////////////////
 
 int main(int argc, char *argv[])
 {
+	pqueue_test_1();
 	pqueue_test_2();
+	pqueue_test_3();
+	pqueue_test_4();
 	return(0);
 }
 
